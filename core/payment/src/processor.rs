@@ -428,6 +428,12 @@ impl PaymentProcessor {
 
     pub async fn schedule_payment(&self, msg: SchedulePayment) -> Result<(), SchedulePaymentError> {
         let amount = msg.amount.clone();
+        if amount <= BigDecimal::zero() {
+            return Err(SchedulePaymentError::InvalidInput(format!(
+                "Can not schedule payment with <=0 amount: {}",
+                &amount
+            )));
+        }
         let driver =
             self.registry
                 .driver(&msg.payment_platform, &msg.payer_addr, AccountMode::SEND)?;
