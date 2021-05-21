@@ -37,8 +37,12 @@ impl AbortableChild {
                 use ::nix::sys::signal::*;
                 use ::nix::unistd::Pid;
 
-                let pid = child.id() as i32;
-                let _ret = ::nix::sys::signal::kill(Pid::from_raw(pid), SIGTERM);
+                match child.id() {
+                    Some(id) => {
+                        let _ret = ::nix::sys::signal::kill(Pid::from_raw(id as i32), SIGTERM);
+                    }
+                    None => log::error!("missing child process pid"),
+                }
             }
 
             match tokio::time::timeout(Duration::from_secs(2), child.wait()).await {

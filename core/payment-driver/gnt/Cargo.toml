@@ -14,10 +14,10 @@ ya-utils-networking = "0.1"
 
 actix = { version = "0.11", default-features = false }
 actix-connect = "2.0"
-actix-http = "3.0.0-beta.6"
+actix-http = "=3.0.0-beta.5"
 actix-rt = { version = "2.2", features = ["macros"] }
 anyhow = "1.0"
-awc = "2.0"
+awc = "=3.0.0-beta.4"
 bigdecimal = "0.2"
 bitflags = "1.2"
 chrono = { version = "0.4", features = ["serde"] }
